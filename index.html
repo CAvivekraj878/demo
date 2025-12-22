@@ -11,6 +11,31 @@
         href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet">
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Force scroll to top on load */
+        body {
+            overflow-anchor: none;
+        }
+    </style>
+    <script>
+        // Force page to start at top
+        if (history.scrollRestoration) {
+            history.scrollRestoration = 'manual';
+        } else {
+            window.onbeforeunload = function () {
+                window.scrollTo(0, 0);
+            }
+        }
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                window.scrollTo(0, 0);
+            }, 10);
+        });
+    </script>
+    <style>
         :root {
             --primary: #1e9aad;
             --primary-dark: #147482;
