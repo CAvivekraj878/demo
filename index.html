@@ -898,6 +898,24 @@
                     class="btn-secondary" id="offers-later">Maybe Later</button></div>
         </div>
     </div>
+    <!-- Appointment Success Popup -->
+    <div id="success-popup" class="popup">
+        <div class="popup-content" style="text-align:center; padding: 3rem 2rem;">
+            <button class="popup-close" id="success-close" aria-label="Close popup">&times;</button>
+            <div
+                style="width:70px; height:70px; background:#e6fffa; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; margin-bottom:1.5rem; border:1px solid #b2f5ea;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
+                    stroke="#1e9aad" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            <h2 style="color:#1e9aad; margin-bottom:0.75rem; font-size:1.5rem;">Appointment Booked!</h2>
+            <p style="font-size:1rem; color:var(--muted); max-width:320px; margin:0 auto 2rem auto; line-height:1.5;">
+                We have received your request. Our team will contact you shortly to confirm your visit.
+            </p>
+            <button class="btn-primary" id="success-btn-close" style="min-width:150px;">Great!</button>
+        </div>
+    </div>
     <!-- Header -->
     <header>
         <div class="container">
@@ -1083,13 +1101,11 @@
                             <div>
                                 <div class="gform-wrapper reveal">
                                     <div class="gform-note">
-                                        <strong>Setup Required:</strong> We've reached the limit of what we can do
-                                        automatically. To make this form work, you must inspect your Google Form and
-                                        paste the <code>entry.XXXXX</code> IDs into the code below.
+                                        Fill in your details below to request an appointment.
                                     </div>
                                     <script type="text/javascript">var submitted = false;</script>
                                     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"
-                                        onload="if(submitted) {window.location='#book'; alert('Thank you! Your appointment request has been sent.');}"></iframe>
+                                        onload="if(submitted) {window.location='#book'; document.getElementById('success-popup').classList.add('visible');}"></iframe>
 
                                     <!-- Custom Form linked to Google Forms -->
                                     <form
@@ -1099,28 +1115,28 @@
                                         <div class="form-group">
                                             <label class="form-label" for="entry_name">Full Name *</label>
                                             <!-- PASTE YOUR NAME FIELD ID BELOW (replace entry.YOUR_NAME_ID) -->
-                                            <input type="text" id="entry_name" name="entry.YOUR_NAME_ID"
+                                            <input type="text" id="entry_name" name="entry.1245219077"
                                                 class="form-input" placeholder="Your Name" required>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="form-label" for="entry_phone">Phone Number *</label>
                                             <!-- PASTE YOUR PHONE FIELD ID BELOW -->
-                                            <input type="tel" id="entry_phone" name="entry.YOUR_PHONE_ID"
-                                                class="form-input" placeholder="+91 7982657549" required>
+                                            <input type="tel" id="entry_phone" name="entry.3346669" class="form-input"
+                                                placeholder="+91 7982657549" required>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="form-label" for="entry_email">Email Address</label>
                                             <!-- PASTE YOUR EMAIL FIELD ID BELOW -->
-                                            <input type="email" id="entry_email" name="entry.YOUR_EMAIL_ID"
+                                            <input type="email" id="entry_email" name="entry.1889151329"
                                                 class="form-input" placeholder="you@example.com">
                                         </div>
 
                                         <div class="form-group">
                                             <label class="form-label" for="entry_date">Preferred Date</label>
                                             <!-- PASTE YOUR DATE FIELD ID BELOW -->
-                                            <input type="date" id="entry_date" name="entry.YOUR_DATE_ID"
+                                            <input type="date" id="entry_date" name="entry.314510501"
                                                 class="form-input">
                                         </div>
 
@@ -1290,6 +1306,23 @@
                     navLinks.classList.remove('active');
                 });
             });
+
+            // Success Popup Logic
+            const successPopup = document.getElementById("success-popup");
+            const successCloseBtn = document.getElementById("success-close");
+            const successMainBtn = document.getElementById("success-btn-close");
+
+            function closeSuccessPopup() {
+                successPopup.classList.remove("visible");
+            }
+
+            if (successCloseBtn) successCloseBtn.addEventListener("click", closeSuccessPopup);
+            if (successMainBtn) successMainBtn.addEventListener("click", closeSuccessPopup);
+            if (successPopup) {
+                successPopup.addEventListener("click", function (e) {
+                    if (e.target === successPopup) closeSuccessPopup();
+                });
+            }
         })();
     </script>
 </body>
